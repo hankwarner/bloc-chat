@@ -4,8 +4,6 @@ import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList'; 
 
-https://www.gstatic.com/firebasejs/5.3.1/firebase.js
-
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyADnhsksV2J3_j6bKkx4Y2SaC9a_wmlIHo",
@@ -26,7 +24,9 @@ class App extends Component {
   render() {
     return (
       <div>
-       <RoomList />
+       <RoomList 
+          firebase={firebase}
+       />
       </div>
     );
   }

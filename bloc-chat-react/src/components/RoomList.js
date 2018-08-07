@@ -21,7 +21,11 @@ class RoomList extends Component {
 
     render() {
         return (
-            this.state.rooms.map()
+            this.state.rooms.map( room => 
+                <tr>
+                    <td>{room.name}</td>
+                </tr>
+            )
         );
     }
 }
