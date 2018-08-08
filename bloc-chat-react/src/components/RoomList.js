@@ -19,12 +19,26 @@ class RoomList extends Component {
         });
     }
 
+    createRoom(newRoomName) {
+        this.roomsRef.push({
+            name: newRoomName
+        });
+      }
+
     render() {
         return (
             this.state.rooms.map( room => 
                 <tr>
                     <td>{room.name}</td>
                 </tr>
+            )
+            (
+                <form onSubmit={this.createRoom(this.newRoomName)}>
+                    <label>
+                        Room name:
+                        <input type="submit" />
+                    </label>
+                </form>
             )
         );
     }
