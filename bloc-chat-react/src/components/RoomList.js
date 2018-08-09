@@ -27,22 +27,32 @@ class RoomList extends Component {
         });
       }
 
+    handleChange(e) {
+        this.setState({ newRoomName: e.target.value})
+    }
+
     render() {
         return (
             <div>
-                {this.state.rooms.map( room => 
-                    <tr>
-                        <td>{room.name}</td>
-                    </tr>
-                )}
-                <form>
+                <table>
+                    <tbody>
+                        {this.state.rooms.map( (room, index) => 
+                            <tr key={index}>
+                                <td>{room.name}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+                <form onSubmit = { (e) => {this.createRoom(e)}}>
                     <input 
                         type="text"
+                        value={this.state.newRoomName}
+                        onChange={(e) => this.handleChange(e)}
                     />
-                    <button onClick = { (e) => {this.createRoom(e.target.value)}}>Submit</button>
+                    <input type="submit" /> 
                 </form>
             </div>
-        );
+            );
     }
 }
 
