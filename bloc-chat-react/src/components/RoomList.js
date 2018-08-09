@@ -38,7 +38,7 @@ class RoomList extends Component {
                 <table>
                     <tbody>
                         {this.state.rooms.map( (room, index) => 
-                            <tr key={index} onClick={(e) => this.props.highlightRoom}>
+                            <tr key={index} onClick={(e) => this.props.highlightRoom(e)}>
                                 <td>{room.name}</td>
                             </tr>
                         )}

@@ -23,6 +23,8 @@ class App extends Component {
     this.state = {
       activeRoom: ''
     }
+
+    this.highlightRoom = this.highlightRoom.bind(this);
   }
 
   highlightRoom(e) {
