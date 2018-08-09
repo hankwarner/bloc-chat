@@ -21,15 +21,15 @@ class RoomList extends Component {
 
     render() {
         return (
-            this.state.rooms.map( (room, index) => 
-                <table>
-                    <tbody>
+            <table>
+                <tbody>
+                    {this.state.rooms.map( (room, index) => 
                         <tr key={index}>
                             <td>{room.name}</td>
                         </tr>
-                    </tbody>
-                </table>
-            )
+                    )}
+                </tbody>
+            </table>
         );
     }
 }
