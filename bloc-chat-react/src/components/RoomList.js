@@ -8,7 +8,6 @@ class RoomList extends Component {
         this.state = {
             rooms: [],
             newRoomName:"",
-            activeRoom: this.props.activeroom
           };
       
         this.roomsRef = this.props.firebase.database().ref('rooms');
@@ -33,17 +32,13 @@ class RoomList extends Component {
         this.setState({ newRoomName: e.target.value})
     }
 
-    highlightRoom(e) {
-        this.setState({activeroom: e.target.value})
-    }
-
     render() {
         return (
             <div>
                 <table>
                     <tbody>
                         {this.state.rooms.map( (room, index) => 
-                            <tr key={index} onClick={(e) => this.highlightRoom(e)}>
+                            <tr key={index} onClick={(e) => this.props.highlightRoom}>
                                 <td>{room.name}</td>
                             </tr>
                         )}

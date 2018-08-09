@@ -24,18 +24,24 @@ class App extends Component {
       activeRoom: ''
     }
   }
+
+  highlightRoom(e) {
+    this.setState({activeroom: e.target.value})
+  }
   
   render() {
     return (
       <div>
        <RoomList
-          activeroom={this.state.activeRoom}
+          activeRoom={this.state.activeRoom}
           firebase={firebase}
+          highlightRoom={(e) => this.highlightRoom(e)}
        />
 
        <MessageList
-        activeroom={this.state.activeRoom}
+        activeRoom={this.state.activeRoom}
         firebase={firebase}
+        highlightRoom={(e) => this.highlightRoom(e)}
        />
       </div>
     );

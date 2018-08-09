@@ -4,10 +4,6 @@ import * as firebase from 'firebase';
 class MessageList extends React {
     constructor (props) {
         super(props);
-
-        this.state = {
-            activeRoom: this.props.activeroom
-          };
     }
 
     componentDidMount() {
@@ -21,6 +17,7 @@ class MessageList extends React {
     render() {
         return(
             <div>
+
             </div>
         );
     }
