@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 
-class MessageList extends React {
+class MessageList extends Component {
     constructor (props) {
         super(props);
+
+        this.state = {
+            messages: []
+        }
+
+        this.messageRef = this.props.firebase.database().ref('messages');
     }
 
     componentDidMount() {
-        this.roomsRef.on('child_added', snapshot => {
-            const room = snapshot.val();
-            room.key = snapshot.key;
-            this.setState({ rooms: this.state.rooms.concat( room ) });
+        this.messageRef.on('child_added', snapshot => {
+            const message = snapshot.val();
+            message.key = snapshot.key;
+            this.setState({ messages: this.state.messages.concat( message ) });
         });
     }
 
     render() {
         return(
-            <div>
-                
-            </div>
+            <table>
+                <tbody>
+                    {this.state.messages.map( (message, index) => 
+                        <tr key={index}>
+                            <td>{message.username}</td><td>{message.content}</td><td> {message.sentAt}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
         );
     }
 }

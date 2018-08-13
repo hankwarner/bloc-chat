@@ -47,7 +47,7 @@ class RoomList extends Component {
                         )}
                     </tbody>
                 </table>
-                <form onSubmit = { (e) => {this.createRoom(e)}}>>
+                <form onSubmit = { (e) => {this.createRoom(e)}}>
                     <input 
                         type="text"
                         value={this.state.newRoomName}

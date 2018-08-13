@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   highlightRoom(e) {
-    this.setState({activeroom: e.target.value})
+    this.setState({activeRoom: e.target.value})
   }
   
   render() {
