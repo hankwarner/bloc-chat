@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as firebase from 'firebase';
     
 class RoomList extends Component {
     constructor(props) {
@@ -6,7 +7,7 @@ class RoomList extends Component {
 
         this.state = {
             rooms: [],
-            newRoomName:''
+            newRoomName:"",
           };
       
         this.roomsRef = this.props.firebase.database().ref('rooms');
@@ -40,7 +41,7 @@ class RoomList extends Component {
                 <table>
                     <tbody>
                         {this.state.rooms.map( (room, index) => 
-                            <tr key={index}>
+                            <tr key={index} onClick={() => this.props.highlightRoom(room)}>
                                 <td>{room.name}</td>
                             </tr>
                         )}

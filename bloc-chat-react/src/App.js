@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList'; 
+import MessageList from './components/MessageList';
 
   // Initialize Firebase
   var config = {
@@ -18,13 +19,31 @@ import RoomList from './components/RoomList';
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      activeRoom: ''
+    }
+
+    this.highlightRoom = this.highlightRoom.bind(this);
+  }
+
+  highlightRoom(room) {
+    this.setState({activeRoom: room})
   }
   
   render() {
     return (
       <div>
        <RoomList
+          activeRoom={this.state.activeRoom}
           firebase={firebase}
+          highlightRoom={(e) => this.highlightRoom(e)}
+       />
+
+       <MessageList
+        activeRoom={this.state.activeRoom}
+        firebase={firebase}
+        highlightRoom={(e) => this.highlightRoom(e)}
        />
       </div>
     );
