@@ -27,8 +27,8 @@ class App extends Component {
     this.highlightRoom = this.highlightRoom.bind(this);
   }
 
-  highlightRoom(e) {
-    this.setState({activeRoom: e.target.value})
+  highlightRoom(room) {
+    this.setState({activeRoom: room})
   }
   
   render() {

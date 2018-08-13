@@ -21,10 +21,7 @@ class MessageList extends Component {
     }
 
     render() {
-        const listMessages = this.state.messages
-        const highlightedRoom = this.props.activeRoom 
-        listMessages.filter( message => message.roomId === highlightedRoom.roomId)
-        
+        const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key)
         return(
             <table>
                 <tbody>
