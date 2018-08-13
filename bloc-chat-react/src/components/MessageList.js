@@ -21,10 +21,14 @@ class MessageList extends Component {
     }
 
     render() {
+        const listMessages = this.state.messages
+        const highlightedRoom = this.props.activeRoom 
+        listMessages.filter( message => message.roomId === highlightedRoom.roomId)
+        
         return(
             <table>
                 <tbody>
-                    {this.state.messages.map( (message, index) => 
+                    {listMessages.map( (message, index) => 
                         <tr key={index}>
                             <td>{message.username}</td><td>{message.content}</td><td> {message.sentAt}</td>
                         </tr>
