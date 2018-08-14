@@ -12,18 +12,30 @@ class User extends Component {
           });
     }
 
-    render() {
+    signIn() {
         const provider = new this.props.firebase.auth.GoogleAuthProvider();
+        this.props.firebase.auth().signInWithPopup(provider);
+    }
+
+    signOut() {
+        this.props.firebase.auth().signOut();
+    }
+
+    handleSignOut(user) {
+        this.signOut();
+        this.props.setUser(user);
+    }
+    
+    render() {
         const isNotLoggedIn = this.props.activeUser === null;
-        const withPopup = this.props.firebase.auth().signInWithPopup(provider);
-        const getOut = this.props.firebase.auth().signOut();
+        console.log(this.props.activeUser);
 
         return(
             <div>
-                <span>{isNotLoggedIn ? 
-                        <button onClick={() => this.withPopup}>Sign In</button> : 
-                        <button onClick={() => this.getOut}>Sign Out</button>
-                        }</span>
+                {isNotLoggedIn ? 
+                    (<button onClick={() => this.signIn()}>Sign In</button>) :
+                    (<button onClick={(user) => this.handleSignOut(user)}>Sign Out</button>)
+                    }
             </div>
         );
     }
