@@ -19,13 +19,17 @@ class User extends Component {
         const withPopup = this.props.firebase.auth().signInWithPopup(provider);
         const getOut = this.props.firebase.auth().signOut();
 
+        if (isNotLoggedIn) {
+            let button = <button onClick={() => this.withPopup}>Sign In</button>;
+            <span>Guest</span>;
+        } else {
+            let button = <button onClick={() => this.getOut}>Sign Out</button>;
+            <span>{this.props.activeUser.displayName}</span>;
+        }
+
         return(
             <div>
-                {this.props.activeUser == null ?
-                    (<button onClick={() => this.withPopup}>Sign In</button>)
-                    (<span>Guest</span>) :
-                    (<button onClick={() => this.getOut}>Sign Out</button>)
-                    (<span>{this.props.activeUser.displayName}</span>)}
+                {this.button}
             </div>
         );
     }
