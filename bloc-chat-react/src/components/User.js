@@ -33,8 +33,13 @@ class User extends Component {
         return(
             <div>
                 {isNotLoggedIn ? 
-                    (<button onClick={() => this.signIn()}>Sign In</button>) :
-                    (<button onClick={(user) => this.handleSignOut(user)}>Sign Out</button>)
+                    [
+                        <button onClick={() => this.signIn()}>Sign In</button>, 
+                        <span>Guest</span>] :
+                    [
+                        <button onClick={(user) => this.handleSignOut(user)}>Sign Out</button>,
+                        <span>{this.props.activeUser.displayName}</span>
+                    ]
                     }
             </div>
         );
