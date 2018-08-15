@@ -53,7 +53,7 @@ class RoomList extends Component {
                         value={this.state.newRoomName}
                         onChange={(e) => this.handleChange(e)}
                     />
-                    <input type="submit" /> 
+                    <input type="submit" value="New room" /> 
                 </form>
             </div>
             );
