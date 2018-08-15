@@ -7,8 +7,7 @@ class MessageList extends Component {
 
         this.state = {
             messages: [],
-            newMessage: '',
-            messageTime: ''
+            newMessage: ''
         }
 
         this.messageRef = this.props.firebase.database().ref('messages');
@@ -43,19 +42,29 @@ class MessageList extends Component {
                 username: 'Guest'
             })
         }
-        this.setState({ newMessage: '' })
+        this.setState({ newMessage: '' });
     }
 
     handleChange(e) {
-        this.setState({ newMessage: e.target.value })
+        this.setState({ newMessage: e.target.value });
     }
 
     unixConverter(e) {
-        let currentTime = new Date(e * 1000);
+        var timeStamp = new Date(e);
+        var month = timeStamp.getMonth()+1;
+        var date = timeStamp.getDate();
+        var year = timeStamp.getFullYear();
+        var hours = timeStamp.getHours();
+        let minutes = timeStamp.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : '12';
+        minutes = minutes > 10 ? minutes : '0' + minutes;
+        return (month+'/'+date+'/'+year+ ' at ' + hours + ':' + minutes + ampm);
     }
 
     render() {
-        const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key)
+        const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key);
 
         return(
             <div>
@@ -63,7 +72,9 @@ class MessageList extends Component {
                     <tbody>
                         {listMessages.map( (message, index) => 
                             <tr key={index}>
-                                <td>{message.username}</td><td>{message.content}</td><td> {this.unixConverter(message.sentAt)}</td>
+                                <td>{message.username}</td>
+                                <td>{message.content}</td>
+                                <td>{this.unixConverter(message.sentAt)}</td>
                             </tr>
                         )}
                     </tbody>
