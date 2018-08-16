@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
 
 class User extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.firebase.auth().onAuthStateChanged( user => {
