@@ -62,6 +62,11 @@ class MessageList extends Component {
         return (month+'/'+date+'/'+year+ ' at ' + hours + ':' + minutes + ampm);
     }
 
+    deleteMessage(message) {
+        console.log('deleteMessage working');
+        console.log(message);
+    }
+
     render() {
         const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key);
 
@@ -74,6 +79,10 @@ class MessageList extends Component {
                                 <td>{message.username}</td>
                                 <td>{message.content}</td>
                                 <td>{this.unixConverter(message.sentAt)}</td>
+                                <td> 
+                                    {this.props.activeUser.displayName === message.username ? 
+                                    <button onClick={(message) => this.deleteMessage(message)}>Delete</button> : ''}
+                                </td>
                             </tr>
                         )}
                     </tbody>
