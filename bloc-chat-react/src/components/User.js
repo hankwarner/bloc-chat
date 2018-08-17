@@ -30,13 +30,13 @@ class User extends Component {
             <div>
                 {isNotLoggedIn ? 
                     [
-                        <button onClick={() => this.signIn()}>Sign In</button>, 
-                        <span>Guest</span>] :
+                        <button key="in" onClick={() => this.signIn()}>Sign In</button>, 
+                        <span key="ind">Guest</span>] :
                     [
-                        <button onClick={(user) => this.handleSignOut(user)}>Sign Out</button>,
-                        <span>{this.props.activeUser.displayName}</span>
+                        <button key="i" onClick={(user) => this.handleSignOut(user)}>Sign Out</button>,   
+                        <span key="index">{this.props.activeUser.displayName}</span>
                     ]
-                    }
+                }
             </div>
         );
     }
