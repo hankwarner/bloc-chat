@@ -48,7 +48,7 @@ class MessageList extends Component {
         this.setState({ newMessage: e.target.value });
     }
 
-    unixConverter(e) {
+    convertUnix(e) {
         var timeStamp = new Date(e);
         var month = timeStamp.getMonth()+1;
         var date = timeStamp.getDate();
@@ -61,10 +61,14 @@ class MessageList extends Component {
         minutes = minutes > 10 ? minutes : '0' + minutes;
         return (month+'/'+date+'/'+year+ ' at ' + hours + ':' + minutes + ampm);
     }
-
+/* pass message.key. Firebase documentation for .remove*/
     deleteMessage(message) {
-        console.log('deleteMessage working');
-        console.log(message);
+        this.messageRef.on('child_added', snapshot => {
+            const message = snapshot.val();
+            message.key = snapshot.key
+        });
+        console.log('deleteMessage function fired');
+        console.log(message.key);
     }
 
     render() {
@@ -78,7 +82,7 @@ class MessageList extends Component {
                             <tr key={index}>
                                 <td>{message.username}</td>
                                 <td>{message.content}</td>
-                                <td>{this.unixConverter(message.sentAt)}</td>
+                                <td>{this.convertUnix(message.sentAt)}</td>
                                 <td> 
                                     {this.props.activeUser.displayName === message.username ? 
                                     <button onClick={(message) => this.deleteMessage(message)}>Delete</button> : ''}

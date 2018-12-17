@@ -34,6 +34,10 @@ class RoomList extends Component {
         this.setState({ newRoomName: e.target.value })
     }
 
+    renameRoom() {
+        console.log('renameRoom function fired');
+    }
+
     render() {
         return (
             <div>
@@ -42,6 +46,9 @@ class RoomList extends Component {
                         {this.state.rooms.map( (room, index) => 
                             <tr key={index} onClick={() => this.props.highlightRoom(room)}>
                                 <td>{room.name}</td>
+                                <td>
+                                    <button onClick={() => this.renameRoom()}>Rename</button>
+                                </td>
                             </tr>
                         )}
                     </tbody>
