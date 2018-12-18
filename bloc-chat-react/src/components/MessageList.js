@@ -62,11 +62,10 @@ class MessageList extends Component {
         return (month+'/'+date+'/'+year+ ' at ' + hours + ':' + minutes + ampm);
     }
 
-    deleteMessage(message) {
-        this.messageRef.on('child_added', snapshot => {
-            const message = snapshot.val();
-            message.key = snapshot.key
-        });
+    deleteMessage(e) {
+        let messageKey = e.target.value;
+        e.preventDefault();
+        this.messageRef.child(messageKey).remove();
     }
 
     render() {
@@ -86,8 +85,9 @@ class MessageList extends Component {
                                 <span class="mdl-list__item-secondary-content">
                                     <span class="mdl-list__item-secondary-info">{this.convertUnix(message.sentAt)}</span>
                                     <span class="mdl-list__item-secondary-action">
-                                        {this.props.activeUser.displayName === message.username ? 
-                                        <button onClick={(message) => this.deleteMessage(message)}>Delete</button> : ''}
+                                        {(this.props.activeUser === null) ? 
+                                        '' : (this.props.activeUser.displayName === message.username) ? 
+                                        <button value={message.key} onClick={(e) => this.deleteMessage(e)}>Delete</button> : ''}
                                     </span>
                                 </span>
                             </li>
