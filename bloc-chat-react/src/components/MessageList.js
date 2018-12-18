@@ -93,15 +93,18 @@ class MessageList extends Component {
                             </li>
                         </ul>
                     )}
-                    <form onSubmit = { (e) => {this.createMessage(e)} }>
-                        <input 
-                            type="text"
-                            placeholder="Write you message here..."
-                            value={this.state.newMessage}
-                            onChange={ (e) => this.handleChange(e) }
-                        />
-                        <input type="submit" value="Send" />
-                    </form>
+                    {(!this.props.activeRoom) ? '' : 
+                       
+                       <form onSubmit = { (e) => {this.createMessage(e)} }>
+                            <input 
+                                type="text"
+                                placeholder="Write your message here..."
+                                value={this.state.newMessage}
+                                onChange={ (e) => this.handleChange(e) }
+                            />
+                            <input type="submit" value="Send" />
+                        </form>
+                    }
                 </div>
             </div>
         );
