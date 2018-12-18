@@ -61,7 +61,7 @@ class MessageList extends Component {
         minutes = minutes > 10 ? minutes : '0' + minutes;
         return (month+'/'+date+'/'+year+ ' at ' + hours + ':' + minutes + ampm);
     }
-/* doesn't auto-refresh after delete, need to add a setState event?*/
+    
     deleteMessage(e) {
         let messageKey = e.target.value;
         e.preventDefault();
@@ -72,32 +72,40 @@ class MessageList extends Component {
         const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key);
 
         return(
-            <div>
-                <table>
-                    <tbody>
-                        {listMessages.map( (message, index) => 
-                            <tr key={index}>
-                                <td>{message.username}</td>
-                                <td>{message.content}</td>
-                                <td>{this.convertUnix(message.sentAt)}</td>
-                                <td> 
-                                    {(this.props.activeUser === null) ? 
-                                    '' : (this.props.activeUser.displayName === message.username) ? 
-                                    <button value={message.key} onClick={(e) => this.deleteMessage(e)}>Delete</button> : ''}
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-                <form onSubmit = { (e) => {this.createMessage(e)} }>
-                    <input 
-                        type="text"
-                        placeholder="Write you message here..."
-                        value={this.state.newMessage}
-                        onChange={ (e) => this.handleChange(e) }
-                    />
-                    <input type="submit" value="Send" />
-                </form>
+            <div className="mdl-grid">
+                <div className="mdl-layout__content">
+                    {listMessages.map( (message, index) => 
+                        <ul className="demo-list-two mdl-list" key={index}>
+                            <li className="mdl-list__item mdl-list__item--two-line">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-avatar">person</i>
+                                    <span>{message.username}</span>
+                                    <span class="mdl-list__item-sub-title">{message.content}</span>
+                                </span>
+                                <span class="mdl-list__item-secondary-content">
+                                    <span class="mdl-list__item-secondary-info">{this.convertUnix(message.sentAt)}</span>
+                                    <span class="mdl-list__item-secondary-action">
+                                        {(this.props.activeUser === null) ? 
+                                        '' : (this.props.activeUser.displayName === message.username) ? 
+                                        <button value={message.key} onClick={(e) => this.deleteMessage(e)}>Delete</button> : ''}
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    )}
+                    {(!this.props.activeRoom) ? '' : 
+                       
+                       <form onSubmit = { (e) => {this.createMessage(e)} }>
+                            <input 
+                                type="text"
+                                placeholder="Write your message here..."
+                                value={this.state.newMessage}
+                                onChange={ (e) => this.handleChange(e) }
+                            />
+                            <input type="submit" value="Send" />
+                        </form>
+                    }
+                </div>
             </div>
         );
     }

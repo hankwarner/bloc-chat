@@ -34,33 +34,31 @@ class RoomList extends Component {
         this.setState({ newRoomName: e.target.value })
     }
 
-    renameRoom() {
-        console.log('renameRoom function fired');
-    }
-
     render() {
         return (
-            <div>
-                <table>
-                    <tbody>
-                        {this.state.rooms.map( (room, index) => 
-                            <tr key={index} onClick={() => this.props.highlightRoom(room)}>
-                                <td>{room.name}</td>
-                                <td>
-                                    <button onClick={() => this.renameRoom()}>Rename</button>
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-                <form onSubmit = { (e) => {this.createRoom(e)}}>
-                    <input 
-                        type="text"
-                        value={this.state.newRoomName}
-                        onChange={(e) => this.handleChange(e)}
-                    />
-                    <input type="submit" value="New room" /> 
-                </form>
+            <div className="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+                <div className="mdl-layout__drawer">
+                    <table>
+                        <span className="mdl-layout-title">Bloc Chat</span>
+                        <tbody>
+                            <span className="mdl-navigation">
+                                {this.state.rooms.map( (room, index) => 
+                                    <tr key={index} onClick={() => this.props.highlightRoom(room)}>
+                                        <td className="mdl-navigation__link">{room.name}</td>
+                                    </tr>
+                                )}
+                            </span>
+                        </tbody>
+                    </table>
+                    <form onSubmit = { (e) => {this.createRoom(e)}}>
+                        <input 
+                            type="text"
+                            value={this.state.newRoomName}
+                            onChange={(e) => this.handleChange(e)}
+                        />
+                        <input type="submit" value="New room" /> 
+                    </form>
+                </div>
             </div>
             );
     }
