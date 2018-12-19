@@ -48,3 +48,25 @@
 .mdl-card {
   margin: 15% 25% 0 35%;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.mdl-textfield {
+  width: 63%;
+}
+
+.mdl-textfield__input {
+  background-color: rgb(255, 255, 255);
+}
+
+#sendMessage {
+  margin-left: 100%;
+}
+
+.username {
+  margin-left: 10px;
+}
