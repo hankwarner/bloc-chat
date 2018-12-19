@@ -17,7 +17,19 @@ class MessageList extends Component {
             const message = snapshot.val();
             message.key = snapshot.key;
             this.setState({ messages: this.state.messages.concat( message ) });
-        });
+        })
+
+        this.messageRef.on('child_removed', snapshot => {
+            var deletedPost = snapshot.val();
+            this.setState({ messages: this.state.messages.filter(message => {
+                    if (message.content !== deletedPost.content && message.sentAt !== deletedPost.sentAt) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+            })
+        })
     }
 
     createMessage(e) {
@@ -93,30 +105,41 @@ class MessageList extends Component {
                             </li>
                         </ul>
                     )}
-                    {(!this.props.activeRoom) ? 
-                        <div className="demo-card-wide mdl-card mdl-shadow--2dp">
-                            <div className="mdl-card__title">
-                                <h2 className="mdl-card__title-text"></h2>
-                            </div>
-                            <div className="mdl-card__supporting-text">
-                                Welcome to Bloc Chat! To get started, select a chat room from the menu or create a new room!
-                            </div>
-                            <div className="mdl-card__actions mdl-card--border"></div>
-                            <div className="mdl-card__menu">
-                            </div>
-                        </div>    
+                    {
+                        (!this.props.activeRoom) ? 
+                            <div className="demo-card-wide mdl-card mdl-shadow--2dp">
+                                <div className="mdl-card__title">
+                                    <h2 className="mdl-card__title-text"></h2>
+                                </div>
+                                <div className="mdl-card__supporting-text">
+                                    Welcome to Bloc Chat! To get started, select a chat room from the menu or create a new room.
+                                </div>
+                                <div className="mdl-card__actions mdl-card--border"></div>
+                                <div className="mdl-card__menu">
+                                </div>
+                            </div>    
                     
                         : 
-                       
-                       <form onSubmit = { (e) => {this.createMessage(e)} }>
-                            <input 
-                                type="text"
-                                placeholder="Write your message here..."
-                                value={this.state.newMessage}
-                                onChange={ (e) => this.handleChange(e) }
-                            />
-                            <input type="submit" value="Send" />
-                        </form>
+                       <div className="footer">
+                            <form onSubmit = { (e) => {this.createMessage(e)} }>
+                                <div className="mdl-textfield mdl-js-textfield">
+                                    <textarea
+                                        className="mdl-textfield__input"
+                                        type="text"
+                                        placeholder="Write your message here..."
+                                        rows= "3"
+                                        value={this.state.newMessage}
+                                        onChange={ (e) => this.handleChange(e) }
+                                    ></textarea> 
+                                    <input 
+                                        className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                                        id="sendMessage"
+                                        type="submit" 
+                                        value="Send" 
+                                    />
+                                </div>
+                            </form>
+                        </div>
                     }
                 </div>
             </div>

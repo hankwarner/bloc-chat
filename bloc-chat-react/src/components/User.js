@@ -27,14 +27,24 @@ class User extends Component {
         console.log(this.props.activeUser);
 
         return(
-            <div>
+            <div className="signinout">
                 {isNotLoggedIn ? 
                     [
-                        <button key="in" onClick={() => this.signIn()}>Sign In</button>, 
-                        <span key="ind">Guest</span>] :
+                        <button 
+                            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                            key="in" 
+                            onClick={() => this.signIn()}>
+                            Sign In with Google
+                        </button>, 
+                        <span className="username" key="ind">Guest</span>] :
                     [
-                        <button key="i" onClick={(user) => this.handleSignOut(user)}>Sign Out</button>,   
-                        <span key="index">{this.props.activeUser.displayName}</span>
+                        <button 
+                            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                            key="i" 
+                            onClick={(user) => this.handleSignOut(user)}>
+                            Sign Out
+                        </button>, 
+                        <span className="username" key="index">{this.props.activeUser.displayName}</span>
                     ]
                 }
             </div>
