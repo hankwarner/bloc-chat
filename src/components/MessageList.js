@@ -10,6 +10,7 @@ class MessageList extends Component {
         }
 
         this.messageRef = this.props.firebase.database().ref('messages');
+        this.roomRef = this.props.firebase.database().ref('rooms');
     }
 
     componentDidMount() {
@@ -21,6 +22,11 @@ class MessageList extends Component {
 
         this.messageRef.on('child_removed', snapshot => {
             this.setState({ messages: this.state.messages.filter(message => message.key !== snapshot.key)})
+        })
+
+        this.roomRef.on('child_removed', snapshot => {
+            //setState on rooms - move this to RoomList.js? Use a snowman menu for delete room button
+            this.setState({ rooms: this.state.rooms.filter(room => room.key !== snapshot.key)})
         })
     }
 
@@ -72,12 +78,22 @@ class MessageList extends Component {
         this.messageRef.child(messageKey).remove();
     }
 
+    deleteRoom(e) {
+        let roomKey = e.target.value;
+        e.preventDefault();
+        this.roomRef.child(roomKey).remove();
+    }
+
     render() {
         const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key);
 
         return(
             <div className="mdl-grid">
                 <div className="mdl-layout__content">
+                    <div>
+                        <button value={this.props.activeRoom.key} onClick={(e) => this.deleteRoom(e)}>Delete Room</button>
+                    </div>
+
                     {listMessages.map( (message, index) => 
                         <ul className="demo-list-two mdl-list" key={index}>
                             <li className="mdl-list__item mdl-list__item--two-line">
@@ -112,6 +128,7 @@ class MessageList extends Component {
                             </div>    
                     
                         : 
+                        
                        <div className="footer">
                             <form onSubmit = { (e) => {this.createMessage(e)} }>
                                 <div className="mdl-textfield mdl-js-textfield">
