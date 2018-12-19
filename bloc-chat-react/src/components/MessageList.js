@@ -93,7 +93,20 @@ class MessageList extends Component {
                             </li>
                         </ul>
                     )}
-                    {(!this.props.activeRoom) ? '' : 
+                    {(!this.props.activeRoom) ? 
+                        <div className="demo-card-wide mdl-card mdl-shadow--2dp">
+                            <div className="mdl-card__title">
+                                <h2 className="mdl-card__title-text"></h2>
+                            </div>
+                            <div className="mdl-card__supporting-text">
+                                Welcome to Bloc Chat! To get started, select a chat room from the menu or create a new room!
+                            </div>
+                            <div className="mdl-card__actions mdl-card--border"></div>
+                            <div className="mdl-card__menu">
+                            </div>
+                        </div>    
+                    
+                        : 
                        
                        <form onSubmit = { (e) => {this.createMessage(e)} }>
                             <input 
