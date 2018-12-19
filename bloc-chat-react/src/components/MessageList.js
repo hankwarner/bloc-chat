@@ -17,7 +17,14 @@ class MessageList extends Component {
             const message = snapshot.val();
             message.key = snapshot.key;
             this.setState({ messages: this.state.messages.concat( message ) });
-        });
+        })
+
+        this.messageRef.on('child_removed', snapshot => {
+            var deletedPost = snapshot.val();
+            this.setState({ messages: this.state.messages.filter(message => 
+                message.content !== deletedPost.content)
+            })
+        })
     }
 
     createMessage(e) {
@@ -77,14 +84,14 @@ class MessageList extends Component {
                     {listMessages.map( (message, index) => 
                         <ul className="demo-list-two mdl-list" key={index}>
                             <li className="mdl-list__item mdl-list__item--two-line">
-                                <span class="mdl-list__item-primary-content">
-                                    <i class="material-icons mdl-list__item-avatar">person</i>
+                                <span className="mdl-list__item-primary-content">
+                                    <i className="material-icons mdl-list__item-avatar">person</i>
                                     <span>{message.username}</span>
-                                    <span class="mdl-list__item-sub-title">{message.content}</span>
+                                    <span className="mdl-list__item-sub-title">{message.content}</span>
                                 </span>
-                                <span class="mdl-list__item-secondary-content">
-                                    <span class="mdl-list__item-secondary-info">{this.convertUnix(message.sentAt)}</span>
-                                    <span class="mdl-list__item-secondary-action">
+                                <span className="mdl-list__item-secondary-content">
+                                    <span className="mdl-list__item-secondary-info">{this.convertUnix(message.sentAt)}</span>
+                                    <span className="mdl-list__item-secondary-action">
                                         {(this.props.activeUser === null) ? 
                                         '' : (this.props.activeUser.displayName === message.username) ? 
                                         <button value={message.key} onClick={(e) => this.deleteMessage(e)}>Delete</button> : ''}
@@ -95,15 +102,12 @@ class MessageList extends Component {
                     )}
                     {(!this.props.activeRoom) ? 
                         <div className="demo-card-wide mdl-card mdl-shadow--2dp">
-                            <div className="mdl-card__title">
-                                <h2 className="mdl-card__title-text"></h2>
-                            </div>
+                            <div className="mdl-card__title"></div>
                             <div className="mdl-card__supporting-text">
                                 Welcome to Bloc Chat! To get started, select a chat room from the menu or create a new room!
                             </div>
                             <div className="mdl-card__actions mdl-card--border"></div>
-                            <div className="mdl-card__menu">
-                            </div>
+                            <div className="mdl-card__menu"></div>
                         </div>    
                     
                         : 

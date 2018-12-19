@@ -38,18 +38,18 @@ class RoomList extends Component {
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
                 <div className="mdl-layout__drawer">
-                    <table>
+
                         <span className="mdl-layout-title">Bloc Chat</span>
-                        <tbody>
+
                             <span className="mdl-navigation">
                                 {this.state.rooms.map( (room, index) => 
-                                    <tr key={index} onClick={() => this.props.highlightRoom(room)}>
-                                        <td className="mdl-navigation__link">{room.name}</td>
-                                    </tr>
+                                    <span key={index} onClick={() => this.props.highlightRoom(room)}>
+                                        <span className="mdl-navigation__link">{room.name}</span>
+                                    </span>
                                 )}
                             </span>
-                        </tbody>
-                    </table>
+
+
                     <form onSubmit = { (e) => {this.createRoom(e)}}>
                         <input 
                             type="text"
