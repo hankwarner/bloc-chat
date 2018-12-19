@@ -30,3 +30,21 @@
 .mdl-grid {
   margin: 0 18%;
 }
+
+.demo-card-wide.mdl-card {
+  width: 512px;
+}
+
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('./images/beard-coffee-cup-925786.jpg') center / cover;
+}
+
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.mdl-card {
+  margin: 15% 25% 0 35%;
+}
