@@ -21,8 +21,13 @@ class MessageList extends Component {
 
         this.messageRef.on('child_removed', snapshot => {
             var deletedPost = snapshot.val();
-            this.setState({ messages: this.state.messages.filter(message => 
-                message.content !== deletedPost.content)
+            this.setState({ messages: this.state.messages.filter(message => {
+                    if (message.content !== deletedPost.content && message.sentAt !== deletedPost.sentAt) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
             })
         })
     }
