@@ -20,12 +20,7 @@ class MessageList extends Component {
         })
 
         this.messageRef.on('child_removed', snapshot => {
-            var deletedPostKey = snapshot.key;
-            this.setState({ messages: this.state.messages.filter(message => { 
-                    debugger;
-                    message.key !== deletedPostKey
-                })
-            })
+            this.setState({ messages: this.state.messages.filter(message => message.key !== snapshot.key)})
         })
     }
 
