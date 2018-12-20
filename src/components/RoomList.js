@@ -37,7 +37,7 @@ class RoomList extends Component {
         } else {
             return;
         }
-      }
+    }
 
     deleteRoom(e) {
         let roomKey = e.target.value;
@@ -49,20 +49,34 @@ class RoomList extends Component {
         this.setState({ newRoomName: e.target.value })
     }
 
+    promptUserLogin() {
+        alert("Please login to create a new room.");
+    }
+
     render() {
+        const isNotLoggedIn = !this.props.activeUser;
+        
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
                 <div className="mdl-layout__drawer">
                     
-                        <span className="mdl-layout-title">Bloc Chat</span>
+                    <span className="mdl-layout-title">Bloc Chat</span>
 
-                        <form onSubmit = { (e) => {this.createRoom(e)}}>
-                            <button 
-                                onSubmit = { (e) => {this.createRoom(e)}} 
-                                className="mdl-chip">
-                            <span class="mdl-chip__text">New Room</span>
-                            </button> 
-                        </form>
+                    {isNotLoggedIn ?
+                        <button 
+                            onClick = { () => {this.promptUserLogin()}}
+                            className="mdl-chip"
+                            id="new-room">
+                            <span className="mdl-chip__text">New Room</span>
+                        </button>
+                    :
+                        <button 
+                            onClick = { (e) => {this.createRoom(e)}}
+                            className="mdl-chip"
+                            id="new-room">
+                            <span className="mdl-chip__text">New Room</span>
+                        </button>
+                    }
 
                     <span className="mdl-navigation">
                         {this.state.rooms.map( (room, index) => 

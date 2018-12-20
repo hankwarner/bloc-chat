@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import RoomList from './components/RoomList'; 
 import MessageList from './components/MessageList';
 import User from './components/User';
+import { timingSafeEqual } from 'crypto';
 
   // Initialize Firebase
   var config = {
@@ -36,6 +37,7 @@ class App extends Component {
     this.setState({activeUser: user})
   }
   
+  
   render() {
     return (
       <div>
@@ -47,12 +49,15 @@ class App extends Component {
 
        <RoomList
           activeRoom={this.state.activeRoom}
+          activeUser={this.state.activeUser}
+          promptUserLogin={() => this.promptUserLogin()}
           firebase={firebase}
           highlightRoom={(e) => this.highlightRoom(e)}
        />
 
        <MessageList
           activeRoom={this.state.activeRoom}
+          activeUser={this.state.activeUser}
           firebase={firebase}
           highlightRoom={(e) => this.highlightRoom(e)}
           activeUser={this.state.activeUser}

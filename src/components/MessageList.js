@@ -75,6 +75,7 @@ class MessageList extends Component {
 
     render() {
         const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key);
+        const isNotLoggedIn = !this.props.activeUser;
 
         return(
             <div className="mdl-grid">
@@ -115,27 +116,49 @@ class MessageList extends Component {
                                 </div>
                             </div>    
                     
-                        : 
+                    : 
                         
                        <div className="footer">
-                            <form onSubmit = { (e) => {this.createMessage(e)} }>
-                                <div className="mdl-textfield mdl-js-textfield">
-                                    <textarea
-                                        className="mdl-textfield__input"
-                                        type="text"
-                                        placeholder="Write your message here..."
-                                        rows= "3"
-                                        value={this.state.newMessage}
-                                        onChange={ (e) => this.handleChange(e) }
-                                    ></textarea> 
-                                    <input 
-                                        className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
-                                        id="sendMessage"
-                                        type="submit" 
-                                        value="Send" 
-                                    />
-                                </div>
-                            </form>
+                            {isNotLoggedIn ?
+                                <form onSubmit = { (e) => {this.props.promptUserLogin()} }>
+                                    <div className="mdl-textfield mdl-js-textfield">
+                                        <textarea
+                                            className="mdl-textfield__input"
+                                            type="text"
+                                            placeholder="Write your message here..."
+                                            rows= "3"
+                                            value={this.state.newMessage}
+                                            onChange={ (e) => this.handleChange(e) }
+                                        ></textarea> 
+                                        <input 
+                                            className="mdl-button mdl-js-button mdl-button--raised" disabled
+                                            id="sendMessage"
+                                            type="submit" 
+                                            value="Send" 
+                                        />
+                                    </div>
+                                </form>
+                            :
+                                <form onSubmit = { (e) => {this.createMessage(e)} }>
+                                    <div className="mdl-textfield mdl-js-textfield">
+                                        <textarea
+                                            className="mdl-textfield__input"
+                                            type="text"
+                                            placeholder="Write your message here..."
+                                            rows= "3"
+                                            value={this.state.newMessage}
+                                            onChange={ (e) => this.handleChange(e) }
+                                        ></textarea> 
+                                        <input 
+                                            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                                            id="sendMessage"
+                                            type="submit" 
+                                            value="Send" 
+                                        />
+                                    </div>
+                                </form>
+
+                            }
                         </div>
                     }
                 </div>

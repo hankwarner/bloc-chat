@@ -23,7 +23,7 @@ class User extends Component {
     }
     
     render() {
-        const isNotLoggedIn = this.props.activeUser === null;
+        const isNotLoggedIn = !this.props.activeUser;
         console.log(this.props.activeUser);
 
         return(

@@ -71,6 +71,10 @@
   margin-left: 10px;
 }
 
+#new-room {
+  width: 40%;
+}
+
 .mdl-button .mdl-js-button .mdl-button--raised .mdl-js-ripple-effect {
   width: 40%;
   height: 30px;
