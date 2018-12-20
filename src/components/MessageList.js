@@ -23,11 +23,6 @@ class MessageList extends Component {
         this.messageRef.on('child_removed', snapshot => {
             this.setState({ messages: this.state.messages.filter(message => message.key !== snapshot.key)})
         })
-
-        this.roomRef.on('child_removed', snapshot => {
-            //setState on rooms - move this to RoomList.js? Use a snowman menu for delete room button
-            this.setState({ rooms: this.state.rooms.filter(room => room.key !== snapshot.key)})
-        })
     }
 
     createMessage(e) {
@@ -78,21 +73,12 @@ class MessageList extends Component {
         this.messageRef.child(messageKey).remove();
     }
 
-    deleteRoom(e) {
-        let roomKey = e.target.value;
-        e.preventDefault();
-        this.roomRef.child(roomKey).remove();
-    }
-
     render() {
         const listMessages = this.state.messages.filter( message => message.roomID === this.props.activeRoom.key);
 
         return(
             <div className="mdl-grid">
                 <div className="mdl-layout__content">
-                    <div>
-                        <button value={this.props.activeRoom.key} onClick={(e) => this.deleteRoom(e)}>Delete Room</button>
-                    </div>
 
                     {listMessages.map( (message, index) => 
                         <ul className="demo-list-two mdl-list" key={index}>
@@ -107,7 +93,9 @@ class MessageList extends Component {
                                     <span className="mdl-list__item-secondary-action">
                                         {(this.props.activeUser === null) ? 
                                         '' : (this.props.activeUser.displayName === message.username) ? 
-                                        <button value={message.key} onClick={(e) => this.deleteMessage(e)}>Delete</button> : ''}
+                                        <button 
+                                            className="mdl-button mdl-js-button mdl-button--accent"
+                                            value={message.key} onClick={(e) => this.deleteMessage(e)}>Delete</button> : ''}
                                     </span>
                                 </span>
                             </li>

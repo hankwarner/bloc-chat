@@ -31,18 +31,18 @@ class User extends Component {
                 {isNotLoggedIn ? 
                     [
                         <button 
-                            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                            className="mdl-chip"
                             key="in" 
                             onClick={() => this.signIn()}>
-                            Sign In with Google
+                            <span className="mdl-chip__text">Sign In</span>
                         </button>, 
                         <span className="username" key="ind">Guest</span>] :
                     [
                         <button 
-                            className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                            className="mdl-chip"
                             key="i" 
                             onClick={(user) => this.handleSignOut(user)}>
-                            Sign Out
+                            <span className="mdl-chip__text">Sign Out</span>
                         </button>, 
                         <span className="username" key="index">{this.props.activeUser.displayName}</span>
                     ]
